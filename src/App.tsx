@@ -1,12 +1,28 @@
 import { useState, ChangeEvent } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
+  // const apiKey = process.env.REACT_APP_API_KEY;
   const [term, setTerm] = useState<string>("");
+  const [options, setOptions] = useState<[]>([]);
+
+  const getSearchOptions = (value: string) => {
+    fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${
+        import.meta.env.REACT_APP_API_KEY
+      }`
+    )
+      .then((res) => res.json())
+      .then((data) => setOptions(data));
+  };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTerm(e.target.value);
+    const value = e.target.value.trim();
+    setTerm(value);
+
+    if (value === "") return;
+
+    getSearchOptions(value);
   };
   return (
     <>
@@ -23,6 +39,12 @@ function App() {
               className="px-2 py-1 border-2 border-white rounded-1-md"
               onChange={onInputChange}
             />
+
+            <ul className="absolute top-0 bg-white ml-1 rounded-b-md">
+              {options.map((option: { name: string }) => (
+                <p>{option.name}</p>
+              ))}
+            </ul>
 
             <button className="px-2 py-2 border-2 cursor-pointer rounded-r-md border-zinc-100 hover:border-zinc-500 hover:text-zinc-500 text-zinc-1">
               Search
