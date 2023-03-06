@@ -1,6 +1,7 @@
 import "./App.css";
 import Search from "./components/Search";
 import useForecast from "./hooks/useForecast";
+import Forecast from "./components/Forecast";
 
 function App() {
   const { term, options, forecast, onInputChange, onOptionSelect, onSubmit } =
@@ -9,7 +10,7 @@ function App() {
     <>
       <main className="flex justify-center items-center h-[100vh] w-full">
         {forecast ? (
-          "we have a forecast"
+          <Forecast data={forecast} />
         ) : (
           <Search
             term={term}
