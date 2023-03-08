@@ -21,6 +21,5 @@ This project was built alongside a youtube tutorial showing how to use OpenWeath
 https://openweathermap.org/api
 https://openweathermap.org/current
 https://openweathermap.org/api/geocoding-api
-
-*Live Site 
+* Live Site 
 https://jedaydiya-weather-app.vercel.app
